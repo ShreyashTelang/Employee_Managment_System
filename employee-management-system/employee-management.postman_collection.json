@@ -1,0 +1,73 @@
+{
+  "info": {
+    "name": "Employee Management API",
+    "description": "CRUD requests for the Employee Management API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "employeeId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/health" }
+    },
+    {
+      "name": "Create Employee",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"department\": \"Information Technology\",\n  \"designation\": \"Developer\",\n  \"salary\": 45000\n}"
+        },
+        "url": "{{baseUrl}}/api/employees"
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            "pm.test('Employee created', function () { pm.response.to.have.status(201); });",
+            "const employee = pm.response.json();",
+            "pm.collectionVariables.set('employeeId', employee._id);"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "Get All Employees",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/employees" }
+    },
+    {
+      "name": "Get Employee by ID",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/employees/{{employeeId}}" }
+    },
+    {
+      "name": "Update Employee (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"department\": \"Information Technology\",\n  \"designation\": \"Senior Developer\",\n  \"salary\": 55000\n}"
+        },
+        "url": "{{baseUrl}}/api/employees/{{employeeId}}"
+      }
+    },
+    {
+      "name": "Partially Update Employee (PATCH)",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"salary\": 60000\n}" },
+        "url": "{{baseUrl}}/api/employees/{{employeeId}}"
+      }
+    },
+    {
+      "name": "Delete Employee",
+      "request": { "method": "DELETE", "url": "{{baseUrl}}/api/employees/{{employeeId}}" }
+    }
+  ]
+}

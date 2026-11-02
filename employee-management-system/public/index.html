@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="/" aria-label="Organization home">
+          <span class="brand-mark">E</span><span>work<span class="brand-dot">.</span></span>
+        </a>
+        <p class="nav-label">WORKSPACE</p>
+        <a class="nav-item active" href="/">Employees <span class="nav-count" id="nav-count">0</span></a>
+        <div class="sidebar-note"><strong>Employee directory</strong><p>Manage employee records in one place.</p></div>
+      </aside>
+      <main class="main-content">
+        <header class="topbar"><span>Workspace / Employees</span><span>Admin</span></header>
+        <section class="page-heading">
+          <div><p class="eyebrow">YOUR ORGANIZATION DIRECTORY</p><h1>Employees</h1><p class="subtitle">Keep employee details organized.</p></div>
+          <button class="button button-primary" id="add-employee-button" type="button">＋ Add employee</button>
+        </section>
+        <section class="stat-card"><div><span class="stat-label">TOTAL EMPLOYEES</span><strong id="total-count">—</strong></div></section>
+        <section class="directory">
+          <div class="directory-heading">
+            <div><h2>All employees</h2><p>Your employee directory at a glance.</p></div>
+            <label class="search-box"><input id="search-input" type="search" placeholder="Search employees..." aria-label="Search employees"></label>
+          </div>
+          <div id="notice" class="notice" role="status" hidden></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>EMPLOYEE</th><th>DEPARTMENT</th><th>DESIGNATION</th><th>EMAIL</th><th>SALARY</th><th></th></tr></thead>
+              <tbody id="employee-list"><tr><td class="loading-row" colspan="6">Loading employees...</td></tr></tbody>
+            </table>
+          </div>
+          <div class="directory-footer"><span id="results-label">Showing 0 employees</span><span>Employee Management</span></div>
+        </section>
+      </main>
+    </div>
+    <dialog id="employee-dialog">
+      <form id="employee-form">
+        <div class="dialog-heading"><div><p class="eyebrow">EMPLOYEE DETAILS</p><h2 id="dialog-title">Add an employee</h2></div><button class="icon-button" id="close-dialog" type="button">×</button></div>
+        <label>Full name<input name="name" required maxlength="100" placeholder="e.g. John Doe"></label>
+        <label>Email address<input name="email" type="email" required placeholder="john.doe@example.com"></label>
+        <label>Department<input name="department" required maxlength="100" placeholder="e.g. Information Technology"></label>
+        <label>Designation<input name="designation" required maxlength="100" placeholder="e.g. Developer"></label>
+        <label>Salary<input name="salary" type="number" required min="0" step="0.01" placeholder="45000"></label>
+        <p id="form-error" class="form-error" role="alert"></p>
+        <div class="dialog-actions"><button class="button button-secondary" id="cancel-dialog" type="button">Cancel</button><button class="button button-primary" type="submit" id="save-button">Save employee</button></div>
+      </form>
+    </dialog>
+  </body>
+</html>
